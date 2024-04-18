@@ -23,15 +23,23 @@ fn main() {
 
 fn read_guess() -> u32 {
     println!("Please input your guess.");
+    loop {
+        let mut guess = String::new(); // mut means mutable (variables are immutable by default in rust)
+        io::stdin()
+            .read_line(&mut guess) // & means reference and it is immutable by default so the &mut is used to make the reference mutable
+            .expect("Failed to read line");
 
-    let mut guess = String::new(); // mut means mutable (variables are immutable by default in rust)
+        // let guess: u32 = guess.trim().parse().expect("Please type a number!");
 
-    io::stdin()
-        .read_line(&mut guess) // & means reference and it is immutable by default so the &mut is used to make the reference mutable
-        .expect("Failed to read line");
-
-    let guess: u32 = guess.trim().parse().expect("Please type a number!");
-    println!("You guessed: {guess}");
-
-    guess
+        match guess.trim().parse() {
+            Ok(num) => {
+                println!("You guessed: {guess}");
+                return num;
+            }
+            Err(_) => {
+                println!("Please type a number!");
+                continue;
+            }
+        };
+    }
 }
