@@ -29,8 +29,7 @@ fn read_guess() -> u32 {
             .read_line(&mut guess) // & means reference and it is immutable by default so the &mut is used to make the reference mutable
             .expect("Failed to read line");
 
-        // let guess: u32 = guess.trim().parse().expect("Please type a number!");
-
+        // move from expect to match to move from catching the error to handling it
         match guess.trim().parse() {
             Ok(num) => {
                 println!("You guessed: {guess}");
